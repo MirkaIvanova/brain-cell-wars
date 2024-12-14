@@ -100,6 +100,11 @@ function renderQuiz() {
         answerDiv.className = "answer"
         answerDiv.style.display = showAnswers ? "block" : "none"
 
+        // Create the feedback div and insert as first child in answerDiv
+        const feedbackDiv = document.createElement("div")
+        feedbackDiv.id = "isCorrect"
+        answerDiv.prepend(feedbackDiv) // Insert as first child
+
         const answerText = document.createElement("p")
         answerText.textContent = `Answer: ${q.answers.map(a => a.letter).join(", ")}`
         answerDiv.appendChild(answerText)
@@ -118,6 +123,9 @@ function toggleAnswers() {
     document.querySelectorAll(".answer").forEach(answerDiv => {
         answerDiv.style.display = showAnswers ? "block" : "none"
 
+        // Get the feedback div specific to this question
+        const feedbackDiv = answerDiv.parentElement.querySelector("#isCorrect")
+
         if (showAnswers) {
             // Check user-selected answers for each question
             const questionDiv = answerDiv.parentElement
@@ -130,22 +138,12 @@ function toggleAnswers() {
             const correctAnswers = quiz.find(a => a.number === parseInt(questionNumber)).answers.map(a => a.letter)
             const isCorrect = userAnswers.sort().join(",") === correctAnswers.sort().join(",")
 
-            // Create feedback message
-            const feedbackText = document.createElement("p")
-            feedbackText.textContent = isCorrect ? "Your answer is correct!" : "Your answer is incorrect!"
-            feedbackText.style.color = isCorrect ? "MediumSeaGreen" : "red"
-
-            // Append feedbackText if it doesn't already exist
-            if (!answerDiv.querySelector(".feedback")) {
-                feedbackText.className = "feedback" // To check if we already appended it
-                answerDiv.appendChild(feedbackText)
-            }
+            // Set feedback message
+            feedbackDiv.textContent = isCorrect ? "Correct" : "Incorrect!"
+            feedbackDiv.style.color = isCorrect ? "MediumSeaGreen" : "red"
         } else {
-            // Remove feedback when answers are hidden
-            const feedback = answerDiv.querySelector(".feedback")
-            if (feedback) {
-                feedback.remove()
-            }
+            // Clear feedback when answers are hidden
+            feedbackDiv.textContent = ""
         }
     })
 }
