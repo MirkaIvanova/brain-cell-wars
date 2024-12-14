@@ -47,7 +47,7 @@ function applyFilters() {
     const min = parseInt(document.getElementById("number-min").value) || -Infinity
     const max = parseInt(document.getElementById("number-max").value) || Infinity
 
-    currentQuestions = quizQuestions.filter(q => {
+    currentQuestions = quiz.filter(q => {
         const withinNumberRange = q.number >= min && q.number <= max
         const matchesTag = tags.length === 0 || q.tags.some(tag => tags.includes(tag))
         return withinNumberRange && matchesTag
@@ -71,18 +71,18 @@ function renderQuiz() {
         questionText.textContent = `${q.number}. ${q.question}`
         questionDiv.appendChild(questionText)
 
-        const optionsList = document.createElement("div") // Change from <ul> to <div>
+        const optionsList = document.createElement("div")
         const options = [...q.options]
         if (document.getElementById("shuffle-options").checked) {
             shuffleArray(options)
         }
 
         options.forEach(option => {
-            const optionDiv = document.createElement("div") // Use a <div> for each option
+            const optionDiv = document.createElement("div")
 
             const checkbox = document.createElement("input")
             checkbox.type = "checkbox"
-            checkbox.id = `${q.number}-${option.letter}` // Set a unique id for each checkbox
+            checkbox.id = `${q.number}-${option.letter}`
             checkbox.value = option.letter
 
             const label = document.createElement("label")
@@ -91,7 +91,7 @@ function renderQuiz() {
 
             optionDiv.appendChild(checkbox)
             optionDiv.appendChild(label)
-            optionsList.appendChild(optionDiv) // Append to the container div
+            optionsList.appendChild(optionDiv)
         })
 
         questionDiv.appendChild(optionsList)
@@ -101,12 +101,11 @@ function renderQuiz() {
         answerDiv.style.display = showAnswers ? "block" : "none"
 
         const answerText = document.createElement("p")
-        const answer = quizAnswers.find(a => a.number === q.number)
-        answerText.textContent = `Answer: ${answer.answers.map(a => a.letter).join(", ")}`
+        answerText.textContent = `Answer: ${q.answers.map(a => a.letter).join(", ")}`
         answerDiv.appendChild(answerText)
 
         const explanationText = document.createElement("p")
-        explanationText.textContent = `Explanation: ${answer.explanation}`
+        explanationText.textContent = `Explanation: ${q.explanation}`
         answerDiv.appendChild(explanationText)
 
         questionDiv.appendChild(answerDiv)
@@ -128,7 +127,7 @@ function toggleAnswers() {
             const checkboxes = questionDiv.querySelectorAll(`input[id^="${questionNumber}-"]:checked`)
             checkboxes.forEach(checkbox => userAnswers.push(checkbox.value))
 
-            const correctAnswers = quizAnswers.find(a => a.number === parseInt(questionNumber)).answers.map(a => a.letter)
+            const correctAnswers = quiz.find(a => a.number === parseInt(questionNumber)).answers.map(a => a.letter)
             const isCorrect = userAnswers.sort().join(",") === correctAnswers.sort().join(",")
 
             // Create feedback message
@@ -162,7 +161,7 @@ function displayScore(display, currentQuestions) {
             const checkboxes = document.querySelectorAll(`input[id^="${q.number}-"]:checked`)
             checkboxes.forEach(checkbox => userAnswers.push(checkbox.value))
 
-            const correctAnswers = quizAnswers.find(a => a.number === q.number).answers.map(a => a.letter)
+            const correctAnswers = quiz.find(a => a.number === q.number).answers.map(a => a.letter)
             if (userAnswers.sort().join(",") === correctAnswers.sort().join(",")) {
                 score++
             }
@@ -222,5 +221,5 @@ document.getElementById("apply-filters").addEventListener("click", applyFilters)
 document.getElementById("toggle-quiz").addEventListener("click", toggleQuiz)
 document.getElementById("toggle-answers").addEventListener("click", toggleAnswers)
 
-renderFilters(extractTags(quizQuestions))
+renderFilters(extractTags(quiz))
 applyFilters()
