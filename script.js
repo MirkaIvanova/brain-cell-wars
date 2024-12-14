@@ -40,6 +40,9 @@ function resetCheckboxes() {
 
 function applyFilters() {
     resetCheckboxes()
+    displayScore(false)
+    showAnswers = true
+    toggleAnswers()
 
     const count = parseInt(document.getElementById("question-count").value) || 20
     const shuffleQuestions = document.getElementById("shuffle-questions").checked
@@ -131,16 +134,19 @@ function toggleAnswers() {
             const questionDiv = answerDiv.parentElement
             const questionNumber = questionDiv.querySelector("p").textContent.split(".")[0] // Get the question number
 
-            const userAnswers = []
             const checkboxes = questionDiv.querySelectorAll(`input[id^="${questionNumber}-"]:checked`)
-            checkboxes.forEach(checkbox => userAnswers.push(checkbox.value))
-
+            const userAnswers = Array.from(checkboxes).map(checkbox => checkbox.value)
             const correctAnswers = quiz.find(a => a.number === parseInt(questionNumber)).answers.map(a => a.letter)
-            const isCorrect = userAnswers.sort().join(",") === correctAnswers.sort().join(",")
 
-            // Set feedback message
-            feedbackDiv.textContent = isCorrect ? "Correct" : "Incorrect!"
-            feedbackDiv.style.color = isCorrect ? "MediumSeaGreen" : "red"
+            if (userAnswers.length > 0) {
+                // Check if at least one checkbox is selected
+                const isCorrect = userAnswers.sort().join(",") === correctAnswers.sort().join(",")
+                // Set feedback message
+                feedbackDiv.textContent = isCorrect ? "Correct" : "Incorrect!"
+                feedbackDiv.style.color = isCorrect ? "MediumSeaGreen" : "red"
+            } else {
+                feedbackDiv.textContent = "" // Clear feedback if no answer is selected
+            }
         } else {
             // Clear feedback when answers are hidden
             feedbackDiv.textContent = ""
