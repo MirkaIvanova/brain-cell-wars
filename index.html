@@ -3,51 +3,15 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Quiz App</title>
-        <link rel="stylesheet" href="styles.css" />
+        <title>Mini Web Page</title>
+        <script src="data.js" defer></script>
+        <!-- Load the second JS script with defer -->
+        <script src="script.js" defer></script>
+        <!-- Load the first JS script with defer -->
     </head>
     <body>
-        <div class="container">
-            <h1>Quiz App 1</h1>
-
-            <div id="filters">
-                <h3>Filters</h3>
-                <label>
-                    Number of Questions:
-                    <input type="number" id="question-count" value="20" min="1" />
-                </label>
-                <label>
-                    Shuffle Questions:
-                    <input type="checkbox" id="shuffle-questions" checked />
-                </label>
-                <label>
-                    Shuffle Options:
-                    <input type="checkbox" id="shuffle-options" checked />
-                </label>
-                <div id="tag-filters">
-                    <h4>Tags</h4>
-                    <!-- Checkboxes for tags will be dynamically populated -->
-                </div>
-                <label>
-                    Number Range:
-                    <input type="number" id="number-min" placeholder="Min" /> -
-                    <input type="number" id="number-max" placeholder="Max" />
-                </label>
-                <button id="apply-filters">Apply Filters</button>
-            </div>
-
-            <button id="start-quiz">Start Quiz</button>
-            <button id="stop-quiz" disabled>Stop Quiz</button>
-            <button id="toggle-answers">Show/Hide All Answers</button>
-
-            <div id="quiz"></div>
-
-            <div id="score" style="display: none">
-                <h2>Quiz Results</h2>
-                <p id="total-score"></p>
-            </div>
-        </div>
-
-        <script src="script.js"></script>
+        <h1>Display JSON Data</h1>
+        <div id="content"></div>
+        <!-- Where the JSON data will be displayed -->
     </body>
 </html>
