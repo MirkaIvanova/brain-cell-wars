@@ -1,4 +1,4 @@
-[
+const quizQuestions = [
     {
         "number": 1,
         "tags": ["math", "algebra"],

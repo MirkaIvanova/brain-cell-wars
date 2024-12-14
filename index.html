@@ -3,15 +3,51 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Mini Web Page</title>
-        <script src="data.js" defer></script>
-        <!-- Load the second JS script with defer -->
+        <title>Brain Cell Wars</title>
+        <link rel="stylesheet" href="styles.css" />
+        <script src="quiz_1.js" defer></script>
+        <script src="answers_1.js" defer></script>
         <script src="script.js" defer></script>
-        <!-- Load the first JS script with defer -->
     </head>
     <body>
-        <h1>Display JSON Data</h1>
-        <div id="content"></div>
-        <!-- Where the JSON data will be displayed -->
+        <div class="container">
+            <h1>Brain Cell Wars</h1>
+
+            <div id="filters">
+                <h3>Filters</h3>
+                <label>
+                    Number of Questions:
+                    <input type="number" id="question-count" value="20" min="1" />
+                </label>
+                <label>
+                    Shuffle Questions:
+                    <input type="checkbox" id="shuffle-questions" checked />
+                </label>
+                <label>
+                    Shuffle Options:
+                    <input type="checkbox" id="shuffle-options" checked />
+                </label>
+                <div id="tag-filters">
+                    <h4>Tags</h4>
+                    <!-- Checkboxes for tags will be dynamically populated -->
+                </div>
+                <label>
+                    Number Range:
+                    <input type="number" id="number-min" placeholder="Min" /> -
+                    <input type="number" id="number-max" placeholder="Max" />
+                </label>
+                <button id="apply-filters">Apply Filters</button>
+            </div>
+
+            <button id="toggle-quiz">Start Quiz</button>
+            <button id="toggle-answers">Show/Hide All Answers</button>
+
+            <div id="quiz"></div>
+
+            <div id="score" style="display: none">
+                <h2>Quiz Results</h2>
+                <p id="total-score"></p>
+            </div>
+        </div>
     </body>
 </html>
