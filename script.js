@@ -90,6 +90,7 @@ function renderQuiz() {
             checkbox.type = "checkbox"
             checkbox.id = `${q.number}-${option.letter}`
             checkbox.value = option.letter
+            checkbox.classList.add("mr-2")
 
             const label = document.createElement("label")
             label.setAttribute("for", checkbox.id)
