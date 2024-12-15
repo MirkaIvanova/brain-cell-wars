@@ -2,7 +2,6 @@ let currentQuestions = []
 let showAnswers = false
 let quizStarted = false
 
-// Utility Functions
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
@@ -24,10 +23,13 @@ function renderFilters(tags) {
         checkbox.type = "checkbox"
         checkbox.value = tag
         checkbox.id = `tag-${tag}`
+        checkbox.classList.add("mr-2")
 
         const label = document.createElement("label")
         label.textContent = tag
-        label.appendChild(checkbox)
+        label.htmlFor = checkbox.id
+        label.classList.add("mr-2")
+        label.insertBefore(checkbox, label.firstChild)
 
         tagFiltersDiv.appendChild(label)
     })
@@ -82,6 +84,7 @@ function renderQuiz() {
 
         options.forEach(option => {
             const optionDiv = document.createElement("div")
+            optionDiv.classList.add("option-container")
 
             const checkbox = document.createElement("input")
             checkbox.type = "checkbox"

@@ -117,3 +117,8 @@ input[type="checkbox"] {
     height: 20px; /* Adjust height */
     cursor: pointer; /* Change cursor on hover */
 }
+
+.option-container {
+    display: flex;
+    align-items: center;
+}

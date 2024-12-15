@@ -4,48 +4,86 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Brain Cell Wars</title>
-        <link rel="stylesheet" href="styles.css" />
         <script src="quiz_answers_1.js" defer></script>
         <script src="script.js" defer></script>
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body>
-        <div class="container">
-            <h1>Brain Cell Wars</h1>
+    <body class="bg-gray-50 text-gray-800">
+        <div class="container mx-auto p-6 space-y-8">
+            <!-- Header -->
+            <h1 class="text-4xl font-extrabold text-center text-gray-900 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">Brain Cell Wars</h1>
 
-            <div id="filters">
-                <h3>Filters</h3>
-                <label>
-                    Number of Questions:
-                    <input type="number" id="question-count" value="20" min="1" />
-                </label>
-                <label>
-                    Shuffle Questions:
-                    <input type="checkbox" id="shuffle-questions" checked />
-                </label>
-                <label>
-                    Shuffle Options:
-                    <input type="checkbox" id="shuffle-options" checked />
-                </label>
-                <div id="tag-filters">
-                    <h4>Tags</h4>
-                    <!-- Checkboxes for tags will be dynamically populated -->
+            <!-- Filters Section -->
+            <div id="filters" class="bg-white p-6 rounded-lg shadow-lg space-y-6">
+                <h3 class="text-2xl font-semibold text-gray-700">Filters</h3>
+
+                <!-- Number of Questions, Shuffle Questions, Shuffle Options -->
+                <div class="flex space-x-6">
+                    <!-- Number of Questions -->
+                    <div class="flex items-center space-x-2">
+                        <label class="text-gray-600"> Number of Questions: </label>
+                        <input type="number" id="question-count" value="20" min="1" class="pl-2 w-14 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                    </div>
+
+                    <!-- Shuffle Questions -->
+                    <div class="flex items-center space-x-2">
+                        <input type="checkbox" id="shuffle-questions" class="text-blue-600 focus:ring-blue-500" checked />
+                        <span>Shuffle Questions</span>
+                    </div>
+
+                    <!-- Shuffle Options -->
+                    <div class="flex items-center space-x-2">
+                        <input type="checkbox" id="shuffle-options" class="text-blue-600 focus:ring-blue-500" checked />
+                        <span>Shuffle Options</span>
+                    </div>
                 </div>
-                <label>
-                    Number Range:
-                    <input type="number" id="number-min" placeholder="Min" /> -
-                    <input type="number" id="number-max" placeholder="Max" />
-                </label>
-                <button id="apply-filters">Apply Filters</button>
+
+                <!-- Tag Filters -->
+                <div class="flex items-start space-x-4">
+                    <!-- Title for the Tag Filters -->
+                    <h4 class="text-lg font-semibold text-gray-600 whitespace-nowrap">Filter by Tags:</h4>
+                    <!-- Tag Filters Section -->
+                    <div id="tag-filters" class="flex-1 space-y-4 border border-gray-300 p-4 rounded-lg bg-gray-50">
+                        <!-- Dynamically Populated Checkboxes -->
+                        <!-- The dynamically generated tags from script.js will appear here -->
+                    </div>
+                </div>
+
+                <!-- Number Range -->
+                <div>
+                    <label class="block text-gray-600">
+                        Number Range:
+                        <div class="flex items-center space-x-2 mt-1">
+                            <input type="number" id="number-min" placeholder="Min" class="pl-2 w-14 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                            <span class="text-gray-500">-</span>
+                            <input type="number" id="number-max" placeholder="Max" class="pl-2 w-14 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Apply Filters Button -->
+                <div class="text-center">
+                    <button id="apply-filters" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Apply Filters</button>
+                </div>
             </div>
 
-            <button id="toggle-quiz">Start Quiz</button>
-            <button id="toggle-answers">Show/Hide All Answers</button>
+            <!-- Quiz Controls -->
+            <div class="flex justify-center space-x-4">
+                <button id="toggle-quiz" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Start Quiz</button>
+                <button id="toggle-answers" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Show/Hide All Answers
+                </button>
+            </div>
 
-            <div id="quiz"></div>
+            <!-- Quiz Section -->
+            <div id="quiz" class="mt-8 space-y-6">
+                <!-- Questions will be dynamically populated here -->
+            </div>
 
-            <div id="score" style="display: none">
-                <h2>Quiz Results</h2>
-                <p id="total-score"></p>
+            <!-- Score Section -->
+            <div id="score" class="bg-white p-6 rounded-lg shadow-lg text-center hidden">
+                <h2 class="text-2xl font-semibold text-gray-700">Quiz Results</h2>
+                <p id="total-score" class="text-xl font-bold text-blue-600 mt-4"></p>
             </div>
         </div>
     </body>
