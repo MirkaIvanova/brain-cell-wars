@@ -104,7 +104,8 @@ function renderQuiz() {
         questionDiv.appendChild(optionsList)
 
         const answerDiv = document.createElement("div")
-        answerDiv.className = "answer"
+
+        answerDiv.className = "answer bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg pl-2 pb-2 mt-1"
         answerDiv.style.display = showAnswers ? "block" : "none"
 
         // Create the feedback div and insert as first child in answerDiv
