@@ -848,7 +848,7 @@ const quiz = [
             "Backpropagation is the core algorithm for training neural networks.  It calculates the gradient of the loss function with respect to the network's weights. This gradient is then used to update the weights, minimizing the loss. The error is propagated backward, starting from the output layer and moving layer by layer towards the input layer.  Each layer's contribution to the overall error is calculated using the chain rule of calculus.",
     },
     {
-        tags: [],
+        tags: ["training"],
         number: 27,
         question: "Which component determines the size of weight updates during training?",
         options: [
@@ -1040,7 +1040,7 @@ const quiz = [
             "The cost function (or loss function) quantifies the error between the model's predictions and the true values. A smaller value indicates that the model's predictions are, on average, closer to the actual values, signifying better model performance.  Options A, C, and D describe situations where the cost function would likely be higher.",
     },
     {
-        tags: [],
+        tags: ["training"],
         number: 33,
         question: "What role does the optimizer play in neural network training?",
         options: [
@@ -1108,7 +1108,7 @@ const quiz = [
             "Adam (Adaptive Moment Estimation) and RMSprop (Root Mean Square Propagation) are both adaptive optimization algorithms that are variants of gradient descent. They improve upon standard gradient descent by adapting the learning rate for each parameter.  Adagrad is also a variant, but the question asks for two. Gradient Boosting is an ensemble method, not an optimizer for neural networks.",
     },
     {
-        tags: [],
+        tags: ["training"],
         number: 35,
         question: "Scenario: During training, the model's loss decreases but its accuracy on validation data drops. What is likely happening?",
         options: [
@@ -1688,7 +1688,7 @@ const quiz = [
             "In gradient descent, the gradient represents the direction and magnitude of the steepest ascent of the loss function at a particular point in the parameter space.  The negative of the gradient is used to update the model parameters, moving them in the direction of the steepest descent (reducing the loss).",
     },
     {
-        tags: [],
+        tags: ["training"],
         number: 53,
         question: "Scenario: A neural network shows a loss that fluctuates sharply during training. Which strategy can stabilize it?",
         options: [
@@ -1912,7 +1912,7 @@ const quiz = [
             "Overfitting occurs when a model learns the training data too well, including its noise and outliers, resulting in poor generalization to unseen data. Training for too many epochs without regularization techniques (like dropout, weight decay, or early stopping) allows the model to memorize the training data, leading to overfitting. A large learning rate can lead to instability and prevent convergence, but not necessarily overfitting. Insufficient hidden layers might lead to underfitting, and a high batch size generally improves generalization and reduces overfitting.",
     },
     {
-        tags: [],
+        tags: ["training"],
         number: 60,
         question: "Scenario: A neural network performs well on training data but poorly on validation data. Which of these approaches can improve the situation?",
         options: [
@@ -2331,7 +2331,7 @@ const quiz = [
             "Before calculating gradients and updating weights, the loss function must first be computed. The loss function quantifies the difference between the network's predictions and the actual target values.  The gradient calculation (using the chain rule) and weight updates follow the computation of the loss.",
     },
     {
-        tags: ["gradient"],
+        tags: ["gradient", "training"],
         number: 73,
         question: "If gradients explode during training, what is a potential solution?",
         options: [
@@ -2563,7 +2563,7 @@ const quiz = [
             "Batch size significantly impacts training. Larger batches reduce the noise in the gradient estimate, leading to more stable updates but increasing computational cost per iteration. Smaller batches introduce more noise, potentially helping escape local minima but making the training process less stable.  Option A is partially true; smaller batches lead to more frequent updates, but not necessarily smoother in the sense of a consistently decreasing loss curve. The noise introduced can lead to oscillations.",
     },
     {
-        tags: [],
+        tags: ["training"],
         number: 80,
         question: "Scenario: During training, your loss value stops decreasing. What is the FIRST step you should try?",
         options: [
@@ -2595,7 +2595,7 @@ const quiz = [
             "If the loss stops decreasing during training, the first troubleshooting step should be to reduce the learning rate. A learning rate that is too high can cause the optimization algorithm to overshoot the minimum, preventing convergence.  Increasing the number of hidden layers, removing dropout (which is a regularization technique), or increasing the batch size are more significant architectural or hyperparameter changes that should be considered only after simpler adjustments like reducing the learning rate have been explored.",
     },
     {
-        tags: [],
+        tags: ["training"],
         number: 81,
         question: "Which of the following components is updated during training?",
         options: [
@@ -3203,7 +3203,7 @@ const quiz = [
             "Mini-batch gradient descent processes the training data in smaller batches (mini-batches) instead of the entire dataset at once. This significantly reduces the computational cost of each gradient update, making training more efficient, especially for large datasets.  It also introduces a degree of stochasticity which can help escape local minima.",
     },
     {
-        tags: [],
+        tags: ["training"],
         number: 100,
         question: "Scenario: Your neural network training is progressing slowly. What should you try FIRST?",
         options: [
@@ -3397,7 +3397,7 @@ const quiz = [
     {
         tags: ["activation"],
         number: 106,
-        question: "Which activation function is defined as \\( \\text{ReLU}(x) = \\max(0, x) \\)?",
+        question: "Which activation function is defined as ReLU(x) = max(0, x) ?",
         options: [
             {
                 letter: "a",
@@ -3423,8 +3423,7 @@ const quiz = [
                 answer: "Rectified Linear Unit (ReLU)",
             },
         ],
-        explanation:
-            "The definition \\\\( \\\\text{ReLU}(x) = \\\\max(0, x) \\\\) directly corresponds to the Rectified Linear Unit activation function.  ReLU outputs the input if it's positive and 0 otherwise.",
+        explanation: "The definition ReLU(x) = max(0, x) directly corresponds to the Rectified Linear Unit activation function.  ReLU outputs the input if it's positive and 0 otherwise.",
     },
     {
         tags: ["activation"],
@@ -3497,19 +3496,19 @@ const quiz = [
         options: [
             {
                 letter: "a",
-                answer: "\\(-1\\) to \\(1\\)",
+                answer: "-1 to 1",
             },
             {
                 letter: "b",
-                answer: "\\(0\\) to \\(1\\)",
+                answer: "0 to 1",
             },
             {
                 letter: "c",
-                answer: "\\(-\\infty\\) to \\(\\infty\\)",
+                answer: "-infinity to infinity",
             },
             {
                 letter: "d",
-                answer: "\\(0\\) to \\(0.5\\)",
+                answer: "0 to 0.5",
             },
         ],
         correct_answers: ["B"],

@@ -13,6 +13,16 @@
             }
         </script>
         <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+        <style>
+            button:disabled {
+                background-color: #d1d5db; /* Tailwind's bg-gray-300 */
+                color: #9ca3af; /* Tailwind's text-gray-400 */
+                cursor: not-allowed;
+            }
+            button:disabled:hover {
+                background-color: #d1d5db; /* Tailwind's bg-gray-300 */
+            }
+        </style>
     </head>
     <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
         <div class="overarching min-h-screen bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
@@ -80,7 +90,6 @@
                             <!-- </div> -->
                         </label>
                     </div>
-
                     <!-- Tag Filters -->
                     <div class="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4">
                         <h4 class="text-gray-600 dark:text-gray-400 whitespace-nowrap">Filter by Tags:</h4>
@@ -88,7 +97,6 @@
                             <!-- Dynamically Populated Checkboxes -->
                         </div>
                     </div>
-
                     <!-- Apply Filters Button -->
                     <div class="text-center">
                         <button
@@ -99,7 +107,6 @@
                         </button>
                     </div>
                 </div>
-
                 <!-- Quiz Controls -->
                 <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                     <button
@@ -115,12 +122,10 @@
                         Show/Hide All Answers
                     </button>
                 </div>
-
                 <!-- Quiz Section -->
                 <div id="quiz" class="mt-8 space-y-6">
                     <!-- Questions will be dynamically populated here -->
                 </div>
-
                 <!-- Score Section -->
                 <div id="score" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hidden">
                     <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300">Quiz Results</h2>

@@ -94,7 +94,7 @@ function renderQuiz() {
 
             const label = document.createElement("label")
             label.setAttribute("for", checkbox.id)
-            label.textContent = `${option.letter}: ${option.answer}`
+            label.textContent = `${option.letter.toUpperCase()}) ${option.answer}`
 
             optionDiv.appendChild(checkbox)
             optionDiv.appendChild(label)
@@ -196,7 +196,12 @@ function disableFilters(disabled) {
 
 function startQuiz() {
     quizStarted = true
-    document.getElementById("toggle-quiz").textContent = "Stop Quiz" // Change to Stop Quiz
+    const startQuizButton = document.getElementById("toggle-quiz")
+    const showHideAnswersButton = document.getElementById("toggle-answers")
+    startQuizButton.textContent = "Stop Quiz"
+    startQuizButton.classList.add("bg-green-800", "hover:bg-dark-green-700")
+    startQuizButton.classList.remove("bg-green-600", "hover:bg-green-700")
+    showHideAnswersButton.disabled = true
 
     resetCheckboxes()
     disableFilters(true)
@@ -204,7 +209,6 @@ function startQuiz() {
     // Hide answers and score display
     showAnswers = true // Ensure answers are hidden
     toggleAnswers() // Call to hide answers if displayed
-    // document.getElementById("score").style.display = "none"
     displayScore(false)
 }
 
@@ -212,7 +216,12 @@ function stopQuiz() {
     quizStarted = false
     disableFilters(false)
 
-    document.getElementById("toggle-quiz").textContent = "Start Quiz" // Change back to Start Quiz
+    const startQuizButton = document.getElementById("toggle-quiz")
+    const showHideAnswersButton = document.getElementById("toggle-answers")
+    startQuizButton.textContent = "Start Quiz"
+    startQuizButton.classList.add("bg-green-600", "hover:bg-green-700")
+    startQuizButton.classList.remove("bg-green-800", "hover:bg-dark-green-700")
+    showHideAnswersButton.disabled = false
 
     // Re-enable the "Apply Filters" button
     document.getElementById("apply-filters").disabled = false
