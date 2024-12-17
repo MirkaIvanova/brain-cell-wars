@@ -23,7 +23,7 @@ function renderFilters(tags) {
         checkbox.type = "checkbox"
         checkbox.value = tag
         checkbox.id = `tag-${tag}`
-        checkbox.classList.add("mr-2")
+        checkbox.classList.add("mr-2", "w-4", "h-4")
 
         const label = document.createElement("label")
         label.textContent = tag
@@ -90,7 +90,7 @@ function renderQuiz() {
             checkbox.type = "checkbox"
             checkbox.id = `${q.number}-${option.letter}`
             checkbox.value = option.letter
-            checkbox.classList.add("mr-2")
+            checkbox.classList.add("mr-2", "w-4", "h-4")
 
             const label = document.createElement("label")
             label.setAttribute("for", checkbox.id)
@@ -114,11 +114,17 @@ function renderQuiz() {
         answerDiv.prepend(feedbackDiv) // Insert as first child
 
         const answerText = document.createElement("p")
-        answerText.textContent = `Answer: ${q.answers.map(a => a.letter).join(", ")}`
+
+        if (q.answers.length > 1) {
+            answerText.innerHTML = "<i>Answers:</i><br>" + q.answers.map(a => `${a.letter.toUpperCase()}) ${a.answer}`).join("<br>")
+        } else {
+            answerText.innerHTML = `<i>Answer:</i> ${q.answers[0].letter.toUpperCase()}) ${q.answers[0].answer}`
+        }
+
         answerDiv.appendChild(answerText)
 
         const explanationText = document.createElement("p")
-        explanationText.textContent = `Explanation: ${q.explanation}`
+        explanationText.innerHTML = `<i>Explanation:</i> ${q.explanation}`
         answerDiv.appendChild(explanationText)
 
         questionDiv.appendChild(answerDiv)

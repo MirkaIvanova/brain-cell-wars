@@ -2150,11 +2150,11 @@ const quiz = [
             },
             {
                 letter: "c",
-                answer: "0 to \u00e2\u02c6\u017e",
+                answer: "0 to infinity",
             },
             {
                 letter: "d",
-                answer: "-\u00e2\u02c6\u017e to +\u00e2\u02c6\u017e",
+                answer: "-infinity to +infiity",
             },
         ],
         correct_answers: ["B"],

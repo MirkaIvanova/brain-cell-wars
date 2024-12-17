@@ -48,22 +48,14 @@
 
                         <!-- Shuffle Questions -->
                         <div class="flex items-center space-x-2">
-                            <input type="checkbox" id="shuffle-questions" class="text-blue-600 focus:ring-blue-500" checked />
+                            <input type="checkbox" id="shuffle-questions" class="text-blue-600 focus:ring-blue-500 w-4 h-4" checked />
                             <span class="text-gray-600 dark:text-gray-400">Shuffle Questions</span>
                         </div>
 
                         <!-- Shuffle Options -->
                         <div class="flex items-center space-x-2">
-                            <input type="checkbox" id="shuffle-options" class="text-blue-600 focus:ring-blue-500" checked />
+                            <input type="checkbox" id="shuffle-options" class="text-blue-600 focus:ring-blue-500 w-4 h-4" checked />
                             <span class="text-gray-600 dark:text-gray-400">Shuffle Options</span>
-                        </div>
-                    </div>
-
-                    <!-- Tag Filters -->
-                    <div class="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4">
-                        <h4 class="text-lg font-semibold text-gray-600 dark:text-gray-400 whitespace-nowrap">Filter by Tags:</h4>
-                        <div id="tag-filters" class="flex-1 space-y-4 border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-gray-50 dark:bg-gray-700">
-                            <!-- Dynamically Populated Checkboxes -->
                         </div>
                     </div>
 
@@ -71,22 +63,30 @@
                     <div>
                         <label class="block text-gray-600 dark:text-gray-400">
                             Number Range:
-                            <div class="flex items-center space-x-2">
-                                <input
-                                    type="number"
-                                    id="number-min"
-                                    placeholder="Min"
-                                    class="w-20 text-center border border-gray-300 dark:border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                                />
-                                <span class="text-gray-500 dark:text-gray-400">-</span>
-                                <input
-                                    type="number"
-                                    id="number-max"
-                                    placeholder="Max"
-                                    class="w-20 text-center border border-gray-300 dark:border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                                />
-                            </div>
+                            <!-- <div class="flex items-center space-x-2"> -->
+                            <input
+                                type="number"
+                                id="number-min"
+                                placeholder="Min"
+                                class="w-20 text-center border border-gray-300 dark:border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            />
+                            <span class="text-gray-500 dark:text-gray-400">-</span>
+                            <input
+                                type="number"
+                                id="number-max"
+                                placeholder="Max"
+                                class="w-20 text-center border border-gray-300 dark:border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            />
+                            <!-- </div> -->
                         </label>
+                    </div>
+
+                    <!-- Tag Filters -->
+                    <div class="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <h4 class="text-gray-600 dark:text-gray-400 whitespace-nowrap">Filter by Tags:</h4>
+                        <div id="tag-filters" class="flex-1 space-y-4 border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-gray-50 dark:bg-gray-700">
+                            <!-- Dynamically Populated Checkboxes -->
+                        </div>
                     </div>
 
                     <!-- Apply Filters Button -->
