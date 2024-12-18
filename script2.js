@@ -4,36 +4,49 @@ let quizStarted = false
 let timerInterval
 let timeRemaining
 
-function startTimer(duration) {
+function startTimer() {
+    const duration = parseInt(document.getElementById("timer-duration").value)
+    if (!duration) return
     timeRemaining = duration * 60 // Convert minutes to seconds
     updateTimerDisplay()
+    enableTimerInput(false)
 
     timerInterval = setInterval(() => {
         timeRemaining--
         updateTimerDisplay()
 
         if (timeRemaining <= 0) {
-            clearInterval(timerInterval)
-            timerExpired()
+            stopQuiz(true)
         }
     }, 1000)
 }
 
-function timerExpired() {
-    // Stop the quiz and show the score
-    displayScore(true, currentQuestions)
-    alert(`Time expired, your score is: ${calculateScore()}`)
-    stopQuiz()
-}
-
-function calculateScore() {
-    return 0 // Placeholder
-}
-
 function updateTimerDisplay() {
+    const elementTimeRemaining = document.getElementById("time-remaining")
     const minutes = Math.floor(timeRemaining / 60)
     const seconds = timeRemaining % 60
-    document.getElementById("time-remaining").textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+    if (!timeRemaining) {
+        elementTimeRemaining.textContent = ""
+    } else {
+        elementTimeRemaining.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+    }
+}
+
+function enableTimerInput(enable) {
+    document.getElementById("timer-duration").disabled = !enable
+}
+
+function resetTimerDuration() {
+    document.getElementById("timer-duration").value = ""
+}
+
+function enableQuestions(enable) {
+    const allCheckboxes = document.querySelectorAll("#quiz input[type='checkbox']")
+    if (enable) {
+        allCheckboxes.forEach(checkbox => (checkbox.disabled = false))
+    } else {
+        allCheckboxes.forEach(checkbox => (checkbox.disabled = true))
+    }
 }
 
 function shuffleArray(array) {
@@ -229,6 +242,7 @@ function disableFilters(disabled) {
 }
 
 function startQuiz() {
+    applyFilters()
     quizStarted = true
     const startQuizButton = document.getElementById("toggle-quiz")
     const showHideAnswersButton = document.getElementById("toggle-answers")
@@ -240,13 +254,12 @@ function startQuiz() {
     resetCheckboxes()
     disableFilters(true)
 
-    // Hide answers and score display
     showAnswers = true // Ensure answers are hidden
     toggleAnswers() // Call to hide answers if displayed
     displayScore(false)
 }
 
-function stopQuiz() {
+function stopQuiz(forced = false) {
     quizStarted = false
     disableFilters(false)
 
@@ -262,14 +275,19 @@ function stopQuiz() {
     document.getElementById("toggle-answers").disabled = false
 
     displayScore(true, currentQuestions)
+    clearInterval(timerInterval)
+    enableTimerInput(true)
+    if (forced) enableQuestions(false)
+    timeRemaining = 0
+    updateTimerDisplay()
+    resetTimerDuration()
 }
 
 function toggleQuiz() {
     if (quizStarted) {
         stopQuiz()
     } else {
-        const duration = parseInt(document.getElementById("timer-duration").value) || 30
-        startTimer(duration)
+        startTimer()
         startQuiz()
     }
 }

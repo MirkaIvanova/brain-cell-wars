@@ -129,14 +129,15 @@
                     <input
                         type="number"
                         id="timer-duration"
-                        value="30"
-                        min="1"
+                        value=""
+                        min="0"
+                        max="120"
                         class="pl-2 w-14 dark:text-gray-400 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     />
                 </div>
 
                 <!-- Add Timer Display -->
-                <div id="timer-display" class="text-center text-xl font-bold text-gray-700 dark:text-gray-300 mt-4">Time Remaining: <span id="time-remaining">30:00</span></div>
+                <div id="timer-display" class="text-center text-xl font-bold text-gray-700 dark:text-gray-300 mt-4">Time Remaining: <span id="time-remaining"></span></div>
 
                 <!-- Quiz Section -->
                 <div id="quiz" class="mt-8 space-y-6">
