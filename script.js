@@ -1,6 +1,53 @@
 let currentQuestions = []
 let showAnswers = false
 let quizStarted = false
+let timerInterval
+let timeRemaining
+
+function startTimer() {
+    const duration = parseInt(document.getElementById("timer-duration").value)
+    if (!duration) return
+    timeRemaining = duration * 60 // Convert minutes to seconds
+    updateTimerDisplay()
+    enableTimerInput(false)
+
+    timerInterval = setInterval(() => {
+        timeRemaining--
+        updateTimerDisplay()
+
+        if (timeRemaining <= 0) {
+            stopQuiz(true)
+        }
+    }, 1000)
+}
+
+function updateTimerDisplay() {
+    const elementTimeRemaining = document.getElementById("time-remaining")
+    const minutes = Math.floor(timeRemaining / 60)
+    const seconds = timeRemaining % 60
+    if (!timeRemaining) {
+        elementTimeRemaining.textContent = ""
+    } else {
+        elementTimeRemaining.textContent = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+    }
+}
+
+function enableTimerInput(enable) {
+    document.getElementById("timer-duration").disabled = !enable
+}
+
+function resetTimerDuration() {
+    document.getElementById("timer-duration").value = ""
+}
+
+function enableQuestions(enable) {
+    const allCheckboxes = document.querySelectorAll("#quiz input[type='checkbox']")
+    if (enable) {
+        allCheckboxes.forEach(checkbox => (checkbox.disabled = false))
+    } else {
+        allCheckboxes.forEach(checkbox => (checkbox.disabled = true))
+    }
+}
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -195,6 +242,7 @@ function disableFilters(disabled) {
 }
 
 function startQuiz() {
+    applyFilters()
     quizStarted = true
     const startQuizButton = document.getElementById("toggle-quiz")
     const showHideAnswersButton = document.getElementById("toggle-answers")
@@ -206,13 +254,12 @@ function startQuiz() {
     resetCheckboxes()
     disableFilters(true)
 
-    // Hide answers and score display
     showAnswers = true // Ensure answers are hidden
     toggleAnswers() // Call to hide answers if displayed
     displayScore(false)
 }
 
-function stopQuiz() {
+function stopQuiz(forced = false) {
     quizStarted = false
     disableFilters(false)
 
@@ -228,15 +275,20 @@ function stopQuiz() {
     document.getElementById("toggle-answers").disabled = false
 
     displayScore(true, currentQuestions)
+    clearInterval(timerInterval)
+    enableTimerInput(true)
+    if (forced) enableQuestions(false)
+    timeRemaining = 0
+    updateTimerDisplay()
+    resetTimerDuration()
 }
 
 function toggleQuiz() {
     if (quizStarted) {
         stopQuiz()
-        document.getElementById("toggle-quiz").textContent = "Start Quiz" // Change to Start Quiz
     } else {
+        startTimer()
         startQuiz()
-        document.getElementById("toggle-quiz").textContent = "Stop Quiz" // Change to Stop Quiz
     }
 }
 
