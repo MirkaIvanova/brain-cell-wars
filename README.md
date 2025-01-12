@@ -45,7 +45,7 @@ The application consists of three main files:
 ## Question Details
 
 -   Questions 1-120 are general introductory questions
--   Questions 121-823 are related to images
+-   Questions 121-698 are related to images
 
 ## Development
 

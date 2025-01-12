@@ -4,6 +4,17 @@ let quizStarted = false
 let timerInterval
 let timeRemaining
 
+function toggleElementsVisibility(className, show) {
+    const elements = document.getElementsByClassName(className)
+    for (const element of elements) {
+        if (show) {
+            element.classList.remove("hidden")
+        } else {
+            element.classList.add("hidden")
+        }
+    }
+}
+
 function startTimer() {
     const duration = parseInt(document.getElementById("timer-duration").value)
     if (!duration) return
@@ -141,7 +152,11 @@ function renderQuiz() {
 
             const label = document.createElement("label")
             label.setAttribute("for", checkbox.id)
-            label.textContent = `${option.letter.toUpperCase()}) ${option.answer}`
+            const letterSpan = document.createElement("span")
+            letterSpan.className = "letter"
+            letterSpan.textContent = `${option.letter.toUpperCase()}) `
+            label.appendChild(letterSpan)
+            label.appendChild(document.createTextNode(option.answer))
 
             optionDiv.appendChild(checkbox)
             optionDiv.appendChild(label)
@@ -160,15 +175,17 @@ function renderQuiz() {
         feedbackDiv.id = "isCorrect"
         answerDiv.prepend(feedbackDiv) // Insert as first child
 
-        const answerText = document.createElement("p")
+        if (q.answers) {
+            const answerText = document.createElement("p")
 
-        if (q.answers.length > 1) {
-            answerText.innerHTML = "<i>Answers:</i><br>" + q.answers.map(a => `${a.letter.toUpperCase()}) ${a.answer}`).join("<br>")
-        } else {
-            answerText.innerHTML = `<i>Answer:</i> ${q.answers[0].letter.toUpperCase()}) ${q.answers[0].answer}`
+            if (q.answers.length > 1) {
+                answerText.innerHTML = "<i>Answers:</i><br>" + q.answers.map(a => `${a.letter.toUpperCase()}) ${a.answer}`).join("<br>")
+            } else {
+                answerText.innerHTML = `<i>Answer:</i> ${q.answers[0].letter.toUpperCase()}) ${q.answers[0].answer}`
+            }
+
+            answerDiv.appendChild(answerText)
         }
-
-        answerDiv.appendChild(answerText)
 
         const explanationText = document.createElement("p")
         explanationText.innerHTML = `<i>Explanation:</i> ${q.explanation}`
@@ -176,6 +193,8 @@ function renderQuiz() {
 
         questionDiv.appendChild(answerDiv)
         quizDiv.appendChild(questionDiv)
+
+        toggleElementsVisibility("letter", false) // Hide all option letters
     })
 }
 
@@ -188,13 +207,15 @@ function toggleAnswers() {
         const feedbackDiv = answerDiv.parentElement.querySelector("#isCorrect")
 
         if (showAnswers) {
+            // First show all option letters
+            toggleElementsVisibility("letter", true)
             // Check user-selected answers for each question
             const questionDiv = answerDiv.parentElement
             const questionNumber = questionDiv.querySelector("p").textContent.split(".")[0] // Get the question number
 
             const checkboxes = questionDiv.querySelectorAll(`input[id^="${questionNumber}-"]:checked`)
-            const userAnswers = Array.from(checkboxes).map(checkbox => checkbox.value)
-            const correctAnswers = quiz.find(a => a.number === parseInt(questionNumber)).answers.map(a => a.letter)
+            const userAnswers = Array.from(checkboxes).map(checkbox => checkbox.value.toLowerCase())
+            const correctAnswers = quiz.find(a => a.number === parseInt(questionNumber)).answers.map(a => a.letter.toLowerCase())
 
             if (userAnswers.length > 0) {
                 // Check if at least one checkbox is selected
@@ -206,6 +227,7 @@ function toggleAnswers() {
                 feedbackDiv.textContent = "" // Clear feedback if no answer is selected
             }
         } else {
+            toggleElementsVisibility("letter", false) // Hide all option letters
             // Clear feedback when answers are hidden
             feedbackDiv.textContent = ""
         }
@@ -221,9 +243,15 @@ function displayScore(display, currentQuestions) {
         currentQuestions.forEach(q => {
             const userAnswers = []
             const checkboxes = document.querySelectorAll(`input[id^="${q.number}-"]:checked`)
-            checkboxes.forEach(checkbox => userAnswers.push(checkbox.value))
+            checkboxes.forEach(checkbox => userAnswers.push(checkbox.value.toLowerCase()))
 
-            const correctAnswers = quiz.find(a => a.number === q.number).answers.map(a => a.letter)
+            const foundQuestion = quiz.find(a => a.number === q.number)
+            if (!foundQuestion || !foundQuestion.answers) {
+                console.error(`Question ${q.number} not found or has no answers`)
+                return
+            }
+
+            const correctAnswers = foundQuestion.answers.map(a => a.letter.toLowerCase())
             if (userAnswers.sort().join(",") === correctAnswers.sort().join(",")) {
                 score++
             }
