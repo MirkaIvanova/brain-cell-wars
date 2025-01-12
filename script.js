@@ -37,7 +37,7 @@ function enableTimerInput(enable) {
 }
 
 function resetTimerDuration() {
-    document.getElementById("timer-duration").value = ""
+    document.getElementById("timer-duration").value = "30"
 }
 
 function enableQuestions(enable) {
